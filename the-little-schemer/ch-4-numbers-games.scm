@@ -36,10 +36,19 @@
 (define addtup
   (lambda (tup)
     (cond
-      ((null? tup) 0)
-      (( ))
+      ((null? tup) '() )
+      ((zero? (car tup)) 0)
       (else
-        (o+  )
+        (addtup 
+          (cons 
+            (- (car tup) 1) 
+            (cons 
+              (+ (car (cdr tup) 1) 
+                 (cdr (cdr tup))
+               )
+            )
+          )
+        )
       )
     )
   )
