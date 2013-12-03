@@ -71,3 +71,25 @@
   )
 )
 
+(define occur*
+  (lambda (a l)
+    (cond
+      ((null? l) '())
+      ((atom? (car l))
+        (cond
+          ((eqan? a (car l)) (+ 1 (occur* a (cdr l))))
+          (else
+            (cons (car l))
+          )
+        )
+      )
+      (else
+        (+
+          (occur* a (car l))
+          (occur* a (cdr l))
+        )
+      )
+    )
+  )
+)
+
