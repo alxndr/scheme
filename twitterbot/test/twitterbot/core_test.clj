@@ -1,13 +1,29 @@
 (ns twitterbot.core-test
   (:require [clojure.test :refer :all]
             [twitterbot.core :refer :all]))
-
 (deftest rewrite-tweet-test
-  (testing "prepends username"
-           (is (= "{user foo bar")
-               (rewrite-tweet "foo bar" "user")))
-  (testing "removes leading @oberlin"
-           (is (= "{user} foo bar" 
-                  (rewrite-tweet "@oberlin foo bar" "user"))))
+
+  (testing "prepends writer's name"
+           (is (= "{@writer} foo bar"
+                  (rewrite-tweet "@reader foo bar"
+                                 "writer"
+                                 "reader"))))
+
+  (testing "ignores leading whitespace"
+           (is (= "{@writer} foo bar"
+                  (rewrite-tweet " @reader foo bar"
+                                 "writer"
+                                 "reader"))))
+
+  (testing "ignores non-leading @reader"
+           (is (= "{@writer} foo @reader bar"
+                  (rewrite-tweet "foo @reader bar"
+                                 "writer"
+                                 "reader")))
+           (is (= "{@writer} foo @reader bar"
+                  (rewrite-tweet "@reader foo @reader bar"
+                                 "writer"
+                                 "reader"))))
+
 )
 
