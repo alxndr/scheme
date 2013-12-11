@@ -1,6 +1,7 @@
 (ns twamplifier.core-test
   (:require [clojure.test :refer :all]
-            [twamplifier.core :refer :all]))
+            [twamplifier.core :refer :all])
+  )
 
 (deftest rewrite-tweet-test
 

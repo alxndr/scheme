@@ -1,13 +1,13 @@
-# twitterbot
+# twamplifier
 
-A Clojure library designed to ... well, that part is up to you.
+A tweet amplifier.
 
-## Usage
 
-FIXME
+## setup
 
-## License
+* the clojure-twitter package wants clojure.contrib, so `mvn install` https://github.com/arohner/clojure-contrib/tree/1.3-compat
 
-Copyright © 2013 FIXME
 
-Distributed under the Eclipse Public License, the same as Clojure.
+## todo
+
+* look into [the `twitter-api` package](https://github.com/adamwynne/twitter-api)

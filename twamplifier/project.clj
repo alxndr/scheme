@@ -4,7 +4,7 @@
   :license {:name "CC BY-NC-SA"
             :url "google it"}
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [twitter-api "0.7.4"]
-                 [clj-http "0.7.7"]]
+                 [clojure-twitter "1.2.5"] ; https://github.com/mattrepl/clojure-twitter
+                 ]
   :main twamplifier.core
   )

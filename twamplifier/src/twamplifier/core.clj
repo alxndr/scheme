@@ -1,10 +1,8 @@
 (ns twamplifier.core
-    (:use
-      [twitter.oauth]
-      [twitter.utils]
-      ))
+    (require [twitter :as twitter]
+             [oauth.client :as oauth]))
 
-(defn to-str
+(defn to-str ; TODO this can't be actually necessary
   "convenience fn to concat & call str"
   [& seqs]
   (apply str (clojure.core/concat seqs)))
@@ -20,19 +18,6 @@
   [tweet-text writer reader]
   (let [trimmed-tweet (trim-head :text tweet-text :head (to-str reader))]
     (to-str "[@" writer "] " trimmed-tweet)))
-
-(def my-creds
-     (make-oauth-creds
-       "HM2trIrnxPZozvzBpdLhiw" ;*app-consumer-key*
-       "1rLC7gkLsUmlLL5tAwodjiu7bDhFLbaQTN6dn2Igsyw" ;*app-consumer-secret*
-       "15149293-eU5cuv7hPc2GOXfs1Jlx7e63SO2OqluBO7ZIyjKTa" ;*user-access-token*
-       "CkPIq5ZrsFxHzA87UZSPlsbHaQFUIPLAxnRWGrf7VmnIl" ;*user-access-token-secret*
-       ))
-
-(defn go-for-it
-  []
-  (users-show :oauth-creds my-creds :params {:screen-name "AdamJWynne"})
-  )
 
 (defn -main []
   ; auth with twitter
