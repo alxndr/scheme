@@ -1,128 +1,44 @@
 (define rember
-  (lambda (a lat)
+  (lambda (needle haystack)
     (cond
-      ((null? lat) '())
-      ((eq? a (car lat)) (cdr lat))
-      (else (cons
-            (car lat)
-            (rember a (cdr lat))
-      ))
-    )
+      ((null? haystack) '())
+      ((eq? (car haystack) needle) (cdr haystack))
+    (else
+      (cons (car haystack) (rember needle (cdr haystack)))
+    ))
   )
 )
 
 (define firsts
-  (lambda (l)
+  (lambda (list-of-lists)
     (cond
-      ((null? l) '())
-      (else (cons
-              (car (car l))
-              (firsts (cdr l))
-      ))
-    )
+      ((null? list-of-lists) '())
+      ; ((null? (car list-of-lists)) #f)
+      ; ((null? (cdr list-of-lists)) #f)
+    (else
+      (cons (car (car list-of-lists)) (firsts (cdr list-of-lists)))
+    ))
   )
 )
 
 (define insertR
-  (lambda (new old lat)
+  (lambda (new-value needle haystack)
     (cond
-      ((null? lat) '())
-      ((eq? (car lat) old) (cons old (cons new (cdr lat))))
-      (else (cons
-              (car lat)
-              (insertR new old (cdr lat))
-      ))
-    )
+      ((null? haystack) '())
+      ((eq? (car haystack) needle) (cons needle (cons new-value (cdr haystack))))
+    (else
+      (cons (car haystack) (insertR replacement needle (cdr haystack)))
+    ))
   )
 )
 
-(define insertL
-  (lambda (new old lat)
+(define insertL ; not working...... dunno why though
+  (lambda (new-value needle haystack)
     (cond
-      ((null? lat) '())
-      ((eq? (car lat) old) (cons new lat))
-      (else (cons
-              (car lat)
-              (insertL new old (cdr lat))
-      ))
-    )
+      ((null? haystack) '())
+      ((eq? (car haystack) needle) (cons new-value (cons needle (cdr haystack))))
+    (else
+      (cons (car haystack) (insertL replacement needle (cdr haystack)))
+    ))
   )
 )
-
-(define subst
-  (lambda (new old lat)
-    (cond
-      ((null? lat) '())
-      ((eq? (car lat) old) (cons new (cdr lat)))
-      (else
-        (cons (car lat) (subst new old (cdr lat)))
-      )
-    )
-  )
-)
-
-(define subst2
-  (lambda (new old1 old2 lat)
-    (cond
-      ((null? lat) '())
-      ((or
-         (eq? (car lat) old1)
-         (eq? (car lat) old2)
-       )
-       (cons new (cdr lat))
-      )
-      (else
-        (cons (car lat) (subst2 new old1 old2 (cdr lat)))
-      )
-    )
-  )
-)
-
-(define multirember
-  (lambda (a lat)
-    (cond
-      ((null? lat) '())
-      ((eq? (car lat) a) (multirember a (cdr lat)))
-      (else
-        (cons (car lat) (multirember a (cdr lat)))
-      )
-    )
-  )
-)
-
-(define multiinsertR
-  (lambda (new old lat)
-    (cond
-      ((null? lat) '())
-      ((eq? (car lat) old) (cons old (cons new (multiinsertR new old (cdr lat)))))
-      (else
-        (cons (car lat) (multiinsertR new old (cdr lat)))
-      )
-    )
-  )
-)
-
-(define multiinsertL
-  (lambda (new old lat)
-    (cond
-      ((null? lat) '())
-      ((eq? (car lat) old) (cons new (cons old (multiinsertL new old (cdr lat)))))
-      (else
-        (cons (car lat) (multiinsertL new old (cdr lat)))
-      )
-    )
-  )
-)
-
-(define multisubst
-  (lambda (new old lat)
-    (cond
-      ((null? lat) '())
-      ((eq? (car lat) old) (cons new (multisubst new old (cdr lat))))
-      (else
-        (cons (car lat) (multisubst new old (cdr lat)))
-      )
-    )
-  )
-)
-
