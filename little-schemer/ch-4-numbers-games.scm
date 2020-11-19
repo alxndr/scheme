@@ -21,3 +21,11 @@
                    ((null? tup) 0)
                    (else
                      (plus (car tup) (addtup (cdr tup)))))))
+
+(define times (lambda (a b)
+                (cond
+                  ((zero? a) 0)
+                  ; ((zero? b) 0)
+                  ; ((zero? (sub1 a)) b)
+                  ; ((zero? (sub1 b)) a)
+                  (else (plus b (times (sub1 a) b))))))
