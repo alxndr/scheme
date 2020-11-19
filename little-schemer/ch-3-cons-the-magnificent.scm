@@ -37,7 +37,16 @@
                     ((null? haystack)
                      '())
                     ((eq? (car haystack) needle)
-                     (cons new-value (cons needle (cdr haystack))))
+                     (cons new-value haystack))
                     (else
                       (cons (car haystack) (insertL new-value needle (cdr haystack)))
                       ))))
+
+(define subst (lambda (new-value needle haystack)
+                (cond
+                  ((null? haystack)
+                   '())
+                  ((eq? needle (car haystack))
+                   (cons new-value (cdr haystack)))
+                  (else
+                    (cons (car haystack) (subst new-value needle (cdr haystack)))))))
