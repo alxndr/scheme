@@ -50,3 +50,14 @@
                    (cons new-value (cdr haystack)))
                   (else
                     (cons (car haystack) (subst new-value needle (cdr haystack)))))))
+
+(define subst2 (lambda (new-value needle1 needle2 haystack)
+                       (cond
+                         ((null? haystack)
+                          '())
+                         ((or
+                            (eq? needle1 (car haystack))
+                            (eq? needle2 (car haystack)))
+                          (cons new-value (cdr haystack)))
+                         (else
+                           (cons (car haystack) (subst2 new-value needle2 needle2 (cdr haystack)))))))
