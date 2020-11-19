@@ -31,3 +31,13 @@
     )
   )
 )
+
+(define insertL (lambda (new-value needle haystack)
+                  (cond
+                    ((null? haystack)
+                     '())
+                    ((eq? (car haystack) needle)
+                     (cons new-value (cons needle (cdr haystack))))
+                    (else
+                      (cons (car haystack) (insertL new-value needle (cdr haystack)))
+                      ))))
