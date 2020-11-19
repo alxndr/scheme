@@ -77,3 +77,11 @@
                           (cons needle (cons new-value (multiinsertR new-value needle (cdr haystack)))))
                          (else
                            (cons (car haystack) (multiinsertR new-value needle (cdr haystack)))))))
+
+(define multiinsertL (lambda (new-value needle haystack)
+                       (cond
+                         ((null? haystack) '())
+                         ((eq? needle (car haystack))
+                          (cons new-value (cons needle (multiinsertL new-value needle (cdr haystack)))))
+                         (else
+                           (cons (car haystack) (multiinsertL new-value needle (cdr haystack)))))))
