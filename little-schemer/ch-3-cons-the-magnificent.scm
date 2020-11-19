@@ -65,9 +65,15 @@
 (define multirember (lambda (needle haystack)
                       (cond
                         ((null? haystack) '())
-
                         ((eq? (car haystack) needle)
                          (multirember needle (cdr haystack)))
-
                         (else
                           (cons (car haystack) (multirember needle (cdr haystack)))))))
+
+(define multiinsertR (lambda (new-value needle haystack)
+                       (cond
+                         ((null? haystack) '())
+                         ((eq? needle (car haystack))
+                          (cons needle (cons new-value (multiinsertR new-value needle (cdr haystack)))))
+                         (else
+                           (cons (car haystack) (multiinsertR new-value needle (cdr haystack)))))))
