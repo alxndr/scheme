@@ -15,3 +15,9 @@
                   ((zero? b) a)
                   (else
                     (minus (sub1 a) (sub1 b))))))
+
+(define addtup (lambda (tup)
+                 (cond
+                   ((null? tup) 0)
+                   (else
+                     (plus (car tup) (addtup (cdr tup)))))))
