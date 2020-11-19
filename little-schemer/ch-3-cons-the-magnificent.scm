@@ -85,3 +85,11 @@
                           (cons new-value (cons needle (multiinsertL new-value needle (cdr haystack)))))
                          (else
                            (cons (car haystack) (multiinsertL new-value needle (cdr haystack)))))))
+
+(define multisubst (lambda (new-value needle haystack)
+                     (cond
+                       ((null? haystack) '())
+                       ((eq? needle (car haystack))
+                        (cons new-value (multisubst new-value needle (cdr haystack))))
+                       (else
+                         (cons (car haystack) (multisubst new-value needle (cdr haystack)))))))
