@@ -61,3 +61,13 @@
                           (cons new-value (cdr haystack)))
                          (else
                            (cons (car haystack) (subst2 new-value needle2 needle2 (cdr haystack)))))))
+
+(define multirember (lambda (needle haystack)
+                      (cond
+                        ((null? haystack) '())
+
+                        ((eq? (car haystack) needle)
+                         (multirember needle (cdr haystack)))
+
+                        (else
+                          (cons (car haystack) (multirember needle (cdr haystack)))))))
