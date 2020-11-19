@@ -26,19 +26,8 @@
     (cond
       ((null? haystack) '())
       ((eq? (car haystack) needle) (cons needle (cons new-value (cdr haystack))))
-    (else
-      (cons (car haystack) (insertR replacement needle (cdr haystack)))
-    ))
-  )
-)
-
-(define insertL ; not working...... dunno why though
-  (lambda (new-value needle haystack)
-    (cond
-      ((null? haystack) '())
-      ((eq? (car haystack) needle) (cons new-value (cons needle (cdr haystack))))
-    (else
-      (cons (car haystack) (insertL replacement needle (cdr haystack)))
-    ))
+      (else (cons (car haystack)
+                  (insertR new-value needle (cdr haystack))))
+    )
   )
 )
