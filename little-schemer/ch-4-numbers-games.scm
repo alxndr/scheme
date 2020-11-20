@@ -51,3 +51,8 @@
 
 (define = (lambda (a b)
             (and (not (< a b)) (not (> a b)))))
+
+(define ^ (lambda (base power)
+            (cond
+              ((zero? power) 1)
+              (else (times base (^ base (sub1 power)))))))
