@@ -48,3 +48,6 @@
               ((zero? b) #f)
               ((zero? a) #t)
               (else (< (sub1 a) (sub1 b))))))
+
+(define = (lambda (a b)
+            (and (not (< a b)) (not (> a b)))))
