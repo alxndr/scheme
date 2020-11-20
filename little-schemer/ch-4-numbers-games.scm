@@ -32,11 +32,7 @@
 
 (define tup+ (lambda (tup1 tup2)
                (cond
-                 ((and (null? tup1) (null? tup2))
-                  '())
-                 ((null? tup1)
-                  (cons (car tup2) (tup+ '() (cdr tup2) )))
-                 ((null? tup2)
-                  (cons (car tup1) (tup+ (cdr tup1) '() )))
+                 ((null? tup1) tup2)
+                 ((null? tup2) tup1)
                  (else
                    (cons (plus (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
