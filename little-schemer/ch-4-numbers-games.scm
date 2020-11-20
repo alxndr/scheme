@@ -96,3 +96,12 @@
                 (cond
                   ((and (number? a1) (number? a2)) (= a1 a2))
                   (else (eq? a1 a2)))))
+
+(define occur (lambda (a lat)
+                (cond
+                  ((null? lat) 0)
+                  ((eqan? a (car lat)) (add1 (occur a (cdr lat))))
+                  (else (occur a (cdr lat))))))
+
+(define one? (lambda (n)
+               (eqan? n 1)))
