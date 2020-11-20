@@ -58,11 +58,24 @@
               (else (times base (^ base (sub1 power)))))))
 
 (define div (lambda (numerator denominator)
-                  (cond
-                    ((< numerator denominator) 0)
-                    (else (add1 (div (minus numerator denominator) denominator))))))
+              (cond
+                ((< numerator denominator) 0)
+                (else (add1 (div (minus numerator denominator) denominator))))))
 
 (define length (lambda (lat)
                  (cond
                    ((null? lat) 0)
                    (else (add1 (length (cdr lat)))))))
+
+(define pick (lambda (n lat)
+               (cond
+                 ((zero? n) '())
+                 ((null? lat) '())
+                 ((zero? (sub1 n)) (car lat))
+                 (else (pick (sub1 n) (cdr lat))))))
+
+(define rempick (lambda (n lat)
+                  (cond
+                    ((null? lat) '())
+                    ((zero? (sub1 n)) (cdr lat))
+                    (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
