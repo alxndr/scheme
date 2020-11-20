@@ -36,3 +36,10 @@
                  ((null? tup2) tup1)
                  (else
                    (cons (plus (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
+
+(define > (lambda (a b)
+            (cond
+              ((and (zero? a) (zero? b)) #f)
+              ((zero? a) #f)
+              ((zero? b) #t)
+              (else (> (sub1 a) (sub1 b))))))
