@@ -29,3 +29,10 @@
                   ; ((zero? (sub1 a)) b)
                   ; ((zero? (sub1 b)) a)
                   (else (plus b (times (sub1 a) b))))))
+
+(define tup+ (lambda (tup1 tup2)
+               (cond
+                 ((null? tup1) '())
+                 ((null? tup2) '())
+                 (else (cons (plus (car tup1) (car tup2)) (...))) ; something with (cdr tup1) and (cdr tup2)
+                 )))
