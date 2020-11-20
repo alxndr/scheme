@@ -85,3 +85,14 @@
                     ((null? lat) '())
                     ((number? (car lat)) (no-nums (cdr lat)))
                     (else (cons (car lat) (no-nums (cdr lat)))))))
+
+(define all-nums (lambda (lat)
+                   (cond
+                     ((null? lat) '())
+                     ((number? (car lat)) (cons (car lat) (all-nums (cdr lat))))
+                     (else (all-nums (cdr lat))))))
+
+(define eqan? (lambda (a1 a2)
+                (cond
+                  ((and (number? a1) (number? a2)) (= a1 a2))
+                  (else (eq? a1 a2)))))
