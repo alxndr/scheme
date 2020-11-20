@@ -56,3 +56,8 @@
             (cond
               ((zero? power) 1)
               (else (times base (^ base (sub1 power)))))))
+
+(define div (lambda (numerator denominator)
+                  (cond
+                    ((< numerator denominator) 0)
+                    (else (add1 (div (minus numerator denominator) denominator))))))
