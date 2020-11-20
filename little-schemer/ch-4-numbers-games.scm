@@ -33,6 +33,5 @@
 (define tup+ (lambda (tup1 tup2)
                (cond
                  ((null? tup1) '())
-                 ((null? tup2) '())
-                 (else (cons (plus (car tup1) (car tup2)) (...))) ; something with (cdr tup1) and (cdr tup2)
-                 )))
+                 ; ((null? tup2) '())
+                 (else (cons (plus (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
