@@ -39,7 +39,12 @@
 
 (define > (lambda (a b)
             (cond
-              ((and (zero? a) (zero? b)) #f)
               ((zero? a) #f)
               ((zero? b) #t)
               (else (> (sub1 a) (sub1 b))))))
+
+(define < (lambda (a b)
+            (cond
+              ((zero? b) #f)
+              ((zero? a) #t)
+              (else (< (sub1 a) (sub1 b))))))
