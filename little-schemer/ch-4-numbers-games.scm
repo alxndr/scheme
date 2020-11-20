@@ -74,12 +74,6 @@
                  ((zero? (sub1 n)) (car lat))
                  (else (pick (sub1 n) (cdr lat))))))
 
-(define rempick (lambda (n lat)
-                  (cond
-                    ((null? lat) '())
-                    ((zero? (sub1 n)) (cdr lat))
-                    (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
-
 (define no-nums (lambda (lat)
                   (cond
                     ((null? lat) '())
@@ -105,3 +99,9 @@
 
 (define one? (lambda (n)
                (eqan? n 1)))
+
+(define rempick (lambda (n lat)
+                  (cond
+                    ((null? lat) '())
+                    ((one? n) (cdr lat))
+                    (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
