@@ -59,3 +59,9 @@
                                        ((eq? a (car l)) #t)
                                        (else (member* a (cdr l)))))
                     (else (or (member* a (car l)) (member* a (cdr l)))))))
+
+(define leftmost (lambda (l)
+                   (cond
+                     ((null? l) '())
+                     ((atom? (car l)) (car l))
+                     (else (leftmost (car l))))))
