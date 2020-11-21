@@ -32,11 +32,14 @@
                    (else            ; l is a list...
                      (plus               (occur* a (car l)) (occur* a (cdr l)))))))
 
+(define list? (lambda (x) (not (atom? x))))
 (define subst* (lambda (new old l)
                  (cond
-                   ((null? l) ; empty...
+                   ((null? l)
                     '())
-                   ((not (atom? (car l))) ; list...
+                   ((list? (car l))
                     (cons (subst* new old (car l)) (subst* new old (cdr l))))
-                   (else ; value...
-                     ))))
+                   ((eq? old (car l))
+                    (cons new (subst* new old (cdr l))))
+                   (else
+                     (cons (car l) (subst* new old (cdr l)))))))
