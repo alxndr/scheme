@@ -77,20 +77,10 @@
                  (null? l1)
                  (null? l2))
                #f)
-              ((and
-                 (atom? (car l1))
-                 (atom? (car l2)))
-               (and
-                 (eqan?   (car l1) (car l2))
-                 (eqlist? (cdr l1) (cdr l2))))
-              ((or
-                 (atom? (car l1))
-                 (atom? (car l2)))
-               #f)
               (else
                 (and
-                  (eqlist? (car l1) (car l2))
-                  (eqlist? (cdr l1) (cdr l2)))))))
+                  (equal? (car l1) (car l2))
+                  (equal? (cdr l1) (cdr l2)))))))
 
 (define
   equal? (lambda (s1 s2)
