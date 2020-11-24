@@ -81,7 +81,7 @@
                  (atom? (car l1))
                  (atom? (car l2)))
                (and
-                 (eq?     (car l1) (car l2))
+                 (eqan?   (car l1) (car l2))
                  (eqlist? (cdr l1) (cdr l2))))
               ((or
                  (atom? (car l1))
@@ -91,3 +91,23 @@
                 (and
                   (eqlist? (car l1) (car l2))
                   (eqlist? (cdr l1) (cdr l2)))))))
+
+(define
+  equal? (lambda (a b)
+           (cond
+             ((and
+                (null? a)
+                (null? b))
+              #t)
+             ((and
+                (atom? a)
+                (atom? b))
+              (eqan? a b))
+             ((or
+                (atom? (car a))
+                (atom? (car b)))
+              #f)
+             (else
+               (and
+                 (equal? (car a) (car b))
+                 (equal? (cdr a) (cdr b)))))))
