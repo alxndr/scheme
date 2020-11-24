@@ -93,21 +93,15 @@
                   (eqlist? (cdr l1) (cdr l2)))))))
 
 (define
-  equal? (lambda (a b)
+  equal? (lambda (s1 s2)
            (cond
              ((and
-                (null? a)
-                (null? b))
-              #t)
-             ((and
-                (atom? a)
-                (atom? b))
-              (eqan? a b))
+                (atom? s1)
+                (atom? s2))
+              (eqan? s1 s2))
              ((or
-                (atom? (car a))
-                (atom? (car b)))
+                (atom? s1)
+                (atom? s2))
               #f)
              (else
-               (and
-                 (equal? (car a) (car b))
-                 (equal? (cdr a) (cdr b)))))))
+               (eqlist? s1 s2)))))
