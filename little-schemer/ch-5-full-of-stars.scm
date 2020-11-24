@@ -95,3 +95,14 @@
               #f)
              (else
                (eqlist? s1 s2)))))
+
+(define rember
+  (lambda (needle haystack) ; needle is any S-expression, haystack is list of S-expressions
+    (cond
+      ((null? haystack)
+       '())
+      ((equal? (car haystack) needle)
+       (cdr haystack))
+    (else
+      (cons (car haystack)
+            (rember needle (cdr haystack)))))))
