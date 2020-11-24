@@ -83,6 +83,10 @@
                (and
                  (eq?     (car l1) (car l2))
                  (eqlist? (cdr l1) (cdr l2))))
+              ((or
+                 (atom? (car l1))
+                 (atom? (car l2)))
+               #f)
               (else
                 (and
                   (eqlist? (car l1) (car l2))
