@@ -7,31 +7,25 @@
       ((atom? aexp)
        (number? aexp))
 
-      ((eq? (car (cdr aexp)) (quote +))
-       (and (numbered? (car aexp)) (numbered? (car (cdr (cdr aexp))))))
-      ((eq? (car (cdr aexp)) (quote *))
-       (and (numbered? (car aexp)) (numbered? (car (cdr (cdr aexp))))))
-      ((eq? (car (cdr aexp)) (quote ^))
-       (and (numbered? (car aexp)) (numbered? (car (cdr (cdr aexp))))))
-
       (else
-        (#f)))))
+        (and (numbered? (car aexp))
+             (numbered? (car (cdr (cdr aexp)))))))))
 
 (define value
-  (lambda (aexp)
+  (lambda (nexp)
     (cond
-      ((numbered? aexp)
+      ((numbered? nexp)
        (cond
-         ((atom? aexp) aexp)
+         ((atom? nexp) nexp)
 
-         ((eq? (car (cdr aexp)) (quote +))
-          (plus (car aexp) (car (cdr (cdr aexp)))))
+         ((eq? (car (cdr nexp)) (quote +))
+          (plus (car nexp) (car (cdr (cdr nexp)))))
 
-         ((eq? (car (cdr aexp)) (quote *))
-          (times (car aexp) (car (cdr (cdr aexp)))))
+         ((eq? (car (cdr nexp)) (quote *))
+          (times (car nexp) (car (cdr (cdr nexp)))))
 
-         ((eq? (car (cdr aexp)) (quote ^))
-          (exponent (car aexp) (car (cdr (cdr aexp)))))
+         ((eq? (car (cdr nexp)) (quote ^))
+          (exponent (car nexp) (car (cdr (cdr nexp)))))
 
          (else #f))
        )
