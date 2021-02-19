@@ -49,3 +49,28 @@
       ((eq? '^ (car nexp))
        (exponent (value (1st-sub-exp nexp))
                  (value (2nd-sub-exp nexp)))))))
+
+(define sero?
+  (lambda (n)
+    (cond
+      ((eq? '() n)
+       #t)
+      (else
+        #f))))
+
+(define edd1
+  (lambda (n)
+    (cons '() n)))
+
+(define zub1
+  (lambda (n)
+    (cdr n)))
+
+(define pluz
+  (lambda (m n)
+    (cond
+      ((sero? m)
+       n)
+      (else
+        (pluz (zub1 m) (edd1 n)))
+      )))
