@@ -1,4 +1,5 @@
 (load "ch-2-do-it-do-it-again.scm")
+(load "ch-3-cons-the-magnificent.scm")
 
 (define set?-helper
   (lambda (lat seen)
@@ -13,3 +14,11 @@
 (define set?
   (lambda (lat)
     (set?-helper lat '())))
+
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat)
+       '())
+      (else
+        (cons (car lat) (multirember (car lat) (makeset (cdr lat))))))))
