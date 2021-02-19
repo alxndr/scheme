@@ -33,9 +33,6 @@
 
 (define eqset?
   (lambda (set1 set2)
-    (or
-      (and (null? set1) (null? set2))
-      (and
-        (eq? (car set1) (car set2))
-        (eqset? (cdr set1) (cdr set2)))
-      )))
+    (and
+      (subset? set1 set2)
+      (subset? set2 set1))))
