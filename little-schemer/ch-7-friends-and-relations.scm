@@ -21,4 +21,4 @@
       ((null? lat)
        '())
       (else
-        (cons (car lat) (multirember (car lat) (makeset (cdr lat))))))))
+        (cons (car lat) (makeset (multirember (car lat) (cdr lat))))))))
