@@ -14,19 +14,19 @@
 (define value
   (lambda (nexp)
     (cond
-      ((numbered? nexp)
-       (cond
-         ((atom? nexp) nexp)
+      ((number? nexp)
+       nexp)
 
-         ((eq? (car (cdr nexp)) (quote +))
-          (plus (car nexp) (car (cdr (cdr nexp)))))
+      ((eq? (quote +) (car (cdr nexp)))
+       (plus (value (car nexp))
+             (value (car (cdr (cdr nexp))))))
 
-         ((eq? (car (cdr nexp)) (quote *))
-          (times (car nexp) (car (cdr (cdr nexp)))))
+      ((eq? (quote *) (car (cdr nexp)))
+       (times (value (car nexp))
+              (value (car (cdr (cdr nexp))))))
 
-         ((eq? (car (cdr nexp)) (quote ^))
-          (exponent (car nexp) (car (cdr (cdr nexp)))))
+      ((eq? (quote ^) (car (cdr nexp)))
+       (exponent (value (car nexp))
+                 (value (car (cdr (cdr nexp))))))
 
-         (else #f))
-       )
       (else #f))))
