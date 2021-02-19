@@ -1,13 +1,15 @@
 (load "ch-2-do-it-do-it-again.scm")
 
-(define set?
-  (lambda (lat)
+(define set?-helper
+  (lambda (lat seen)
     (cond
       ((null? lat)
        #t)
-
-      ((member? (car lat) (cdr lat))
+      ((member? seen (car lat))
        #f)
-
       (else
-        (set? (cdr lat))))))
+        (set?-helper (cdr lat) (cons seen (car lat)))))))
+
+(define set?
+  (lambda (lat)
+    (set?-helper lat '())))
