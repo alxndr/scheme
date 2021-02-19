@@ -36,3 +36,11 @@
     (and
       (subset? set1 set2)
       (subset? set2 set1))))
+
+(define intersect?
+  (lambda (set1 set2)
+    (and
+      (not (null? set1))
+      (or
+        (member? (car set1) set2)
+        (intersect? (cdr set1) set2)))))
