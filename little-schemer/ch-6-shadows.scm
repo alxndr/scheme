@@ -27,17 +27,25 @@
                  (value (car (cdr (cdr nexp))))))
       (else #f))))
 
+(define 1st-sub-exp
+  (lambda (aexp)
+    (car (cdr aexp))))
+
+(define 2nd-sub-exp
+  (lambda (aexp)
+    (car (cdr (cdr aexp)))))
+
 (define value
   (lambda (nexp)
     (cond
       ((number? nexp)
        nexp)
       ((eq? '+ (car nexp))
-       (plus (value (car (cdr nexp)))
-             (value (car (cdr (cdr nexp))))))
+       (plus (value (1st-sub-exp nexp))
+             (value (2nd-sub-exp nexp))))
       ((eq? '* (car nexp))
-       (times (value (car (cdr nexp)))
-              (value (car (cdr (cdr nexp))))))
+       (times (value (1st-sub-exp nexp))
+              (value (2nd-sub-exp nexp))))
       ((eq? '^ (car nexp))
-       (exponent (value (car (cdr nexp)))
-                 (value (car (cdr (cdr nexp)))))))))
+       (exponent (value (1st-sub-exp nexp))
+                 (value (2nd-sub-exp nexp)))))))
