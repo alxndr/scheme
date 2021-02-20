@@ -1,19 +1,15 @@
 (load "ch-2-do-it-do-it-again.scm")
 (load "ch-3-cons-the-magnificent.scm")
 
-(define set?-helper
-  (lambda (lat seen)
+(define set?
+  (lambda (lat)
     (cond
       ((null? lat)
        #t)
-      ((member? seen (car lat))
+      ((member? (car lat) (cdr lat))
        #f)
       (else
-        (set?-helper (cdr lat) (cons seen (car lat)))))))
-
-(define set?
-  (lambda (lat)
-    (set?-helper lat '())))
+        (set? (cdr lat))))))
 
 (define makeset
   (lambda (lat)
@@ -108,6 +104,14 @@
       (else
         #f))))
 
-(define build
+(define build ; build a pair
   (lambda (s1 s2)
     (cons s1 (cons s2 '()))))
+
+; "rel" = relation, aka a set-of-pairs; set where each element is unique?? and is a 2-length list-of-atoms
+; "fun" = function.......
+; a finite function is a rel where the heads of all pairs are unique
+
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
