@@ -66,11 +66,11 @@
       (else
         (cons (car set1) (union (cdr set1) set2))))))
 
-(define set1
+(define first
   (lambda (l-set)
     (car l-set)))
 
-(define set2
+(define second
   (lambda (l-set)
     (car (cdr l-set))))
 
@@ -84,18 +84,13 @@
       ((null? l-set)
        #f) ; they said this would never happen
       ((null? (sets-remaining l-set))
-       (intersect (set1 l-set) (set2 l-set)))
-      ((null? (set2 l-set))
-       (set1 l-set))
+       (intersect (first l-set) (second l-set)))
+      ((null? (second l-set))
+       (first l-set))
       (else
         (intersectall (cons
-                        (intersect (set1 l-set) (set2 l-set))
-                        (sets-remaining l-set))
-        )
-      )
-    )
-  )
-)
+                        (intersect (first l-set) (second l-set))
+                        (sets-remaining l-set)))))))
 
 (define a-pair
   (lambda (l)
