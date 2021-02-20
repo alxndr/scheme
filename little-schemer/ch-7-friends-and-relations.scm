@@ -96,3 +96,15 @@
     )
   )
 )
+
+(define a-pair
+  (lambda (l)
+    (cond
+      ((null? l)
+       #f)
+      ((null? (cdr l))
+       #f)
+      ((null? (cdr (cdr l)))
+       #t)
+      (else
+        #f))))
