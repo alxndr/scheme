@@ -74,6 +74,10 @@
   (lambda (l-set)
     (car (cdr l-set))))
 
+(define third
+  (lambda (l-set)
+    (car (cdr (cdr l-set)))))
+
 (define sets-remaining
   (lambda (l-set)
     (cdr (cdr l-set))))
