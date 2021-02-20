@@ -92,7 +92,7 @@
                         (intersect (first l-set) (second l-set))
                         (sets-remaining l-set)))))))
 
-(define a-pair
+(define a-pair?
   (lambda (l)
     (cond
       ((null? l)
@@ -103,3 +103,7 @@
        #t)
       (else
         #f))))
+
+(define build
+  (lambda (s1 s2)
+    (cons s1 (cons s2 '()))))
