@@ -65,3 +65,34 @@
        (union (cdr set1) set2))
       (else
         (cons (car set1) (union (cdr set1) set2))))))
+
+(define set1
+  (lambda (l-set)
+    (car l-set)))
+
+(define set2
+  (lambda (l-set)
+    (car (cdr l-set))))
+
+(define sets-remaining
+  (lambda (l-set)
+    (cdr (cdr l-set))))
+
+(define intersectall
+  (lambda (l-set)
+    (cond
+      ((null? l-set)
+       #f) ; they said this would never happen
+      ((null? (sets-remaining l-set))
+       (intersect (set1 l-set) (set2 l-set)))
+      ((null? (set2 l-set))
+       (set1 l-set))
+      (else
+        (intersectall (cons
+                        (intersect (set1 l-set) (set2 l-set))
+                        (sets-remaining l-set))
+        )
+      )
+    )
+  )
+)
