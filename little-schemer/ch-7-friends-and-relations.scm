@@ -109,9 +109,19 @@
     (cons s1 (cons s2 '()))))
 
 ; "rel" = relation, aka a set-of-pairs; set where each element is unique?? and is a 2-length list-of-atoms
-; "fun" = function.......
-; a finite function is a rel where the heads of all pairs are unique
-
+; "fun" = function, a finite function is a rel where the heads of all pairs are unique
 (define fun?
   (lambda (rel)
     (set? (firsts rel))))
+
+(define revrel ; 'reverse relation'
+  (lambda (rel)
+    (cond
+      ((or (null? rel)
+           (null? (first rel))
+           (null? (first (first rel)))
+           (null? (second (first rel))))
+       '())
+      (else
+        (cons (build (second (first rel)) (first (first rel)))
+              (revrel (cdr rel)))))))
