@@ -140,13 +140,6 @@
         (cons (second (first list-of-lists))
               (seconds (cdr list-of-lists)))))))
 
-(define fullfun? ; 'finite function' which also has unique values for the 2nd element in each pair
+(define one-to-one? ; 'finite function' which also has unique values for the 2nd element in each pair
   (lambda (fun)
-    (cond
-      ((null? fun)
-       #t)
-      ((and (fun? fun)
-            (set? (seconds fun)))
-       #t)
-      (else
-        #f))))
+    (set? (seconds fun))))
