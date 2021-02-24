@@ -114,6 +114,10 @@
   (lambda (rel)
     (set? (firsts rel))))
 
+(define revpair ; reverse pair
+  (lambda (pair)
+    (build (second pair) (first pair))))
+
 (define revrel ; 'reverse relation'
   (lambda (rel)
     (cond
@@ -123,5 +127,5 @@
            (null? (second (first rel))))
        '())
       (else
-        (cons (build (second (first rel)) (first (first rel)))
+        (cons (revpair (first rel))
               (revrel (cdr rel)))))))
