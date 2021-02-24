@@ -17,7 +17,8 @@
       ((null? lat)
        '())
       (else
-        (cons (car lat) (makeset (multirember (car lat) (cdr lat))))))))
+        (cons (car lat)
+              (makeset (multirember (car lat) (cdr lat))))))))
 
 (define subset?
   (lambda (set1 set2)
@@ -70,13 +71,13 @@
   (lambda (l-set)
     (car (cdr l-set))))
 
-(define third
-  (lambda (l-set)
-    (car (cdr (cdr l-set)))))
-
 (define sets-remaining
   (lambda (l-set)
     (cdr (cdr l-set))))
+
+(define third
+  (lambda (l-set)
+    (first (sets-remaining l-set))))
 
 (define intersectall
   (lambda (l-set)
@@ -129,3 +130,23 @@
       (else
         (cons (revpair (first rel))
               (revrel (cdr rel)))))))
+
+(define seconds
+  (lambda (list-of-lists)
+    (cond
+      ((null? list-of-lists)
+       '())
+      (else
+        (cons (second (first list-of-lists))
+              (seconds (cdr list-of-lists)))))))
+
+(define fullfun? ; 'finite function' which also has unique values for the 2nd element in each pair
+  (lambda (fun)
+    (cond
+      ((null? fun)
+       #t)
+      ((and (fun? fun)
+            (set? (seconds fun)))
+       #t)
+      (else
+        #f))))
