@@ -1,6 +1,5 @@
 (define rember-f
   (lambda (f a l)
-    (printf "~s ?? ~s ~s ~n" f a (car l))
     (cond
       ((null? l)
        '())
