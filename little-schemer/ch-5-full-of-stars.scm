@@ -1,4 +1,4 @@
-(l "ch-4-numbers-games.scm")
+(load "./ch-4-numbers-games.scm")
 
 (define rember* (lambda (a l)
                   (cond

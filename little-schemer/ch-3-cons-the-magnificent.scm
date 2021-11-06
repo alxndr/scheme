@@ -4,10 +4,8 @@
       ((null? haystack) '())
       ((eq? (car haystack) needle) (cdr haystack))
     (else
-      (cons (car haystack) (rember needle (cdr haystack)))
-    ))
-  )
-)
+      (cons (car haystack)
+            (rember needle (cdr haystack)))))))
 
 (define firsts
   (lambda (list-of-lists)
@@ -16,10 +14,8 @@
       ; ((null? (car list-of-lists)) #f)
       ; ((null? (cdr list-of-lists)) #f)
     (else
-      (cons (car (car list-of-lists)) (firsts (cdr list-of-lists)))
-    ))
-  )
-)
+      (cons (car (car list-of-lists))
+            (firsts (cdr list-of-lists)))))))
 
 (define insertR
   (lambda (new-value needle haystack)

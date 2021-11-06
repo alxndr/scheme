@@ -1,6 +1,6 @@
 # following along with [The Little Schemer]
 
-...using [Racket](https://racket-lang.org/).
+...using [Racket].
 
 To add history support to Racket, `raco pkg install xrepl`. (It will take a while...)
 
@@ -15,3 +15,4 @@ Loading a file:
 -------
 
 [The Little Schemer]: https://smile.amazon.com/Little-Schemer-Daniel-P-Friedman/dp/0262560992
+[Racket]: https://racket-lang.org/
