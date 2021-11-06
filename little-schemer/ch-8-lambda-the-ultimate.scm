@@ -70,8 +70,18 @@
         ((null? haystack)
          '())
         ((eq? (car haystack) needle)
-         (apply seq (new-value needle haystack)))
+         (seq new-value needle haystack))
         (else
           (cons
             (car haystack)
-            ((insertR-curry new-value) needle (cdr haystack))))))))
+            ((insert-g seq) new-value needle (cdr haystack))))))))
+
+(define insertL
+  (insert-g
+    (lambda (new-value needle haystack)
+      (cons new-value (cons needle haystack)))))
+
+(define insertR
+  (insert-g
+    (lambda (new-value needle haystack)
+      (cons needle (cons new-value haystack)))))
