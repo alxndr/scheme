@@ -54,3 +54,20 @@
           (cons
             (car haystack)
             ((insertR-curry new-value) needle (cdr haystack))))))))
+
+(define insert-g
+  (lambda (dir)
+    (lambda (new-value needle haystack)
+      (cond
+        ((null? haystack)
+         '())
+        ((eq? (car haystack) needle)
+         (cond
+           ((equal? dir 'L)
+            (cons new-value (cdr haystack)))
+           (else
+             (cons needle (cons new-value (cdr haystack))))))
+        (else
+          (cons
+            (car haystack)
+            ((insertR-curry new-value) needle (cdr haystack))))))))
