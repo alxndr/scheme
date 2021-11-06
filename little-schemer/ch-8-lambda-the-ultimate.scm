@@ -1,10 +1,10 @@
 (define rember-f
-  (lambda (f a l)
+  (lambda (test-fun atm lst)
     (cond
-      ((null? l)
+      ((null? lst)
        '())
-      ((f (car l) a)
-       (cdr l))
+      ((test-fun (car lst) atm)
+       (cdr lst))
       (else
-        (cons (car l)
-              (rember-f f a (cdr l)))))))
+        (cons (car lst)
+              (rember-f test-fun atm (cdr lst)))))))
