@@ -55,18 +55,22 @@
             (car haystack)
             ((insertR-curry new-value) needle (cdr haystack))))))))
 
+(define seqL
+  (lambda (a b lst)
+    (cons a (cons b lst))))
+
+(define seqR
+  (lambda (a b lst)
+    (cons b (cons a lst))))
+
 (define insert-g
-  (lambda (dir)
+  (lambda (seq)
     (lambda (new-value needle haystack)
       (cond
         ((null? haystack)
          '())
         ((eq? (car haystack) needle)
-         (cond
-           ((equal? dir 'L)
-            (cons new-value (cdr haystack)))
-           (else
-             (cons needle (cons new-value (cdr haystack))))))
+         (apply seq (new-value needle haystack)))
         (else
           (cons
             (car haystack)
