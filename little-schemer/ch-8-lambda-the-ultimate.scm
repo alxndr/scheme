@@ -3,7 +3,7 @@
     (cond
       ((null? l)
        '())
-      ((apply f (quasiquote (a (unquote (car l)))))
+      ((f (car l) a)
        (cdr l))
       (else
         (cons (car l)
