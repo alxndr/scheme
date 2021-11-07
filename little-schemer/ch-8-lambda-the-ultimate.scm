@@ -1,3 +1,5 @@
+(load "ch-6-shadows.scm")
+
 (define rember-f
   (lambda (test-fun atm lst)
     (cond
@@ -90,3 +92,20 @@
   (insert-g
     (lambda (new-value needle haystack)
       (cons new-value (cdr haystack)))))
+
+(define atom-to-function
+  (lambda (x)
+    (cond
+      ((eq? x '+) plus)
+      ((eq? x '*) times)
+      (else exponent))))
+
+(define value
+  (lambda (nexp)
+    (cond
+      ((number? nexp)
+       nexp)
+      (else
+        ((atom-to-function (car nexp))
+         (value (1st-sub-exp nexp))
+         (value (2nd-sub-exp nexp)))))))
