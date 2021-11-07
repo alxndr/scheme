@@ -85,3 +85,8 @@
   (insert-g
     (lambda (new-value needle haystack)
       (cons needle (cons new-value haystack)))))
+
+(define subst
+  (insert-g
+    (lambda (new-value needle haystack)
+      (cons new-value (cdr haystack)))))
