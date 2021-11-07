@@ -11,7 +11,7 @@
         (cons (car lst)
               (rember-f test-fun atm (cdr lst)))))))
 
-(define eq?-curry
+(define eq?-curry ; "eq?-c"
   (lambda (a)
     (lambda (x)
       (eq? x a))))
@@ -121,3 +121,18 @@
         (else
           (cons (car lst)
                 ((multirember-f test) atm (cdr lst))))))))
+
+(define multirember-eq (multirember-f eq?))
+
+(define multiremberT
+  (lambda (test-fun listofatoms)
+    (cond
+      ((null? listofatoms)
+       '())
+      ((test-fun (car listofatoms))
+       (multiremberT test-fun (cdr listofatoms)))
+      (else
+        (cons (car listofatoms)
+              (multiremberT test-fun (cdr listofatoms)))))))
+  ; > (multiremberT (eq?-curry 'salad) '(shrimp salad tuna salad and tuna melt))
+  ; '(shrimp tuna and tuna melt)
