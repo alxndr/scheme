@@ -109,3 +109,15 @@
         ((atom-to-function (car nexp))
          (value (1st-sub-exp nexp))
          (value (2nd-sub-exp nexp)))))))
+
+(define multirember-f
+  (lambda (test)
+    (lambda (atm lst)
+      (cond
+        ((null? lst)
+         '())
+        ((test (car lst) atm)
+         ((multirember-f test) atm (cdr lst)))
+        (else
+          (cons (car lst)
+                ((multirember-f test) atm (cdr lst))))))))
