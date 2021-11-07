@@ -163,4 +163,15 @@
                             (cons (car list-of-atoms) new-list-of-atoms) ; `atm` in the `new…` list
                             seen)))))))
 
-
+(define multiinsertLR
+  (lambda (new-value needleL needleR haystack)
+    (cond
+      ((null? haystack)
+       '())
+      ((eq? needleL (car haystack))
+       (cons new-value (cons needleL (multiinsertLR new-value needleL needleR (cdr haystack)))))
+      ((eq? needleR (car haystack))
+       (cons needleR (cons new-value (multiinsertLR new-value needleL needleR (cdr haystack)))))
+      (else
+        (cons (car haystack)
+              (multiinsertLR new-value needleL needleR (cdr haystack)))))))
