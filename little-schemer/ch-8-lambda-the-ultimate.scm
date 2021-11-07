@@ -136,3 +136,31 @@
               (multiremberT test-fun (cdr listofatoms)))))))
   ; > (multiremberT (eq?-curry 'salad) '(shrimp salad tuna salad and tuna melt))
   ; '(shrimp tuna and tuna melt)
+
+(define multirember&co
+  ; "looks at every atom in [list-of-atoms] to see whether it is `eq?` to [atm].
+  ; "Those … that are not are collected in one list… the others … are collected in a second list.
+  ; "Finally it determines the value of `(collector new-list-of-atoms seen)`"
+  ; illustrating 10th Commandment: Build fxns to collect more than one value at a time (iteration)
+  (lambda (atm list-of-atoms collector)
+    (cond
+
+      ((null? list-of-atoms)
+       (collector '()) '())
+
+      ((eq? (car list-of-atoms) atm)                                    ; when `atm` is in `list-of-atoms`…
+       (multirember&co atm                                              ; recurse…
+                       (cdr list-of-atoms)                              ; through rest of `list-of-atoms`.
+                       (lambda (new-list-of-atoms seen)                 ; final function will include…
+                         (collector new-list-of-atoms
+                                    (cons (car list-of-atoms) seen))))) ; the `atm` in the `seen` list
+
+      (else                                                              ; when `atm` not in `list-of-atoms`…
+        (multirember&co atm                                              ; recurse…
+                        (cdr list-of-atoms)                              ; through rest of `list-of-atoms`.
+                        (lambda (new-list-of-atoms seen)                 ; final function will include…
+                          (collector
+                            (cons (car list-of-atoms) new-list-of-atoms) ; `atm` in the `new…` list
+                            seen)))))))
+
+
