@@ -175,3 +175,37 @@
       (else
         (cons (car haystack)
               (multiinsertLR new-value needleL needleR (cdr haystack)))))))
+
+(define multiinsertLR&co ; collector version of above function
+  (lambda (new-value needleL needleR haystack collector)
+    ; collector function signature: (new-haystack num-left-insertions num-right-insertions)
+    (cond
+      ((null? haystack)
+       (collector '() 0 0))
+      ((eq? needleL (car haystack))
+       (multiinsertLR&co new-value
+                         needleL
+                         needleR
+                         (cdr haystack)
+                         (lambda (new-haystack num-left-insertions num-right-insertions)
+                           (collector (cons new-value (cons needleL (cdr haystack))) ; or new-haystack ??
+                                      (plus 1 num-left-insertions)
+                                      num-right-insertions))))
+      ((eq? needleR (car haystack))
+       (multiinsertLR&co new-value
+                         needleL
+                         needleR
+                         (cdr haystack)
+                         (lambda (new-haystack num-left-insertions num-right-insertions)
+                           (collector (cons needleR (cons new-value (cdr haystack))) ; or new-haystack ??
+                                      num-left-insertions
+                                      (plus 1 num-right-insertions)))))
+      (else
+        (multiinsertLR&co new-value
+                          needleL
+                          needleR
+                          (cdr haystack)
+                          (lambda (new-haystack num-left-insertions num-right-insertions)
+                            (collector haystack
+                                       num-left-insertions
+                                       num-right-insertions)))))))
