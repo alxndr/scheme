@@ -182,6 +182,7 @@
     (cond
       ((null? haystack)
        (collector '() 0 0))
+
       ((eq? needleL (car haystack))
        (multiinsertLR&co new-value
                          needleL
@@ -209,3 +210,28 @@
                             (collector haystack
                                        num-left-insertions
                                        num-right-insertions)))))))
+
+(define even?
+  (lambda (n)
+    (eq? (times (div n 2) 2)
+         n)))
+
+; "*-functions work on lists that are either empty;
+; "an atom `cons`ed onto a list;
+; "or a list `cons`ed onto a list"
+
+(define evens-only*
+  (lambda (list-of-lists)
+    (cond
+      ((null? list-of-lists)
+       '())
+      ((atom? (car list-of-lists))
+       (cond
+         ((even? (car list-of-lists))
+          (cons (car list-of-lists)
+                (evens-only* (cdr list-of-lists))))
+         (else
+           (evens-only* (cdr list-of-lists)))))
+      (else
+        (cons (evens-only* (car list-of-lists))
+              (evens-only* (cdr list-of-lists)))))))
