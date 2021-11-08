@@ -79,3 +79,12 @@
       (else
         (A (sub1 x)
            (A x (sub1 y)))))))
+
+((lambda (Y)
+   (Y Y))
+ (lambda (Y)
+   (lambda (param)
+     (cond
+       ((null? param) 0)
+       (else
+         (add1 ((Y Y)(cdr param))))))))
