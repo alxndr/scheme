@@ -83,8 +83,10 @@
 ((lambda (Y)
    (Y Y))
  (lambda (Y)
-   (lambda (param)
-     (cond
-       ((null? param) 0)
-       (else
-         (add1 ((Y Y)(cdr param))))))))
+   ((lambda (len)
+      (lambda (param)
+        (cond
+          ((null? param) 0)
+          (else
+            (add1 (len (cdr param)))))))
+    (lambda (x) ((Y Y) x)))))
