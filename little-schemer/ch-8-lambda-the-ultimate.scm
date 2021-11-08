@@ -235,3 +235,32 @@
       (else
         (cons (evens-only* (car list-of-lists))
               (evens-only* (cdr list-of-lists)))))))
+
+(define evens-only*&co
+  (lambda (list-of-lists collector)
+    ; collector fn sig: (list-of-lists-evens evens-multiplied odds-summed)
+    (cond
+      ((null? list-of-lists)
+       (collector '() 1 0))
+      ((atom? (car list-of-lists))
+       (cond
+         ((even? (car list-of-lists))
+          (evens-only*&co (cdr list-of-lists)
+                          (lambda (list-of-lists-evens evens-multiplied odds-summed)
+                            (collector (cons (car list-of-lists) list-of-lists-evens)
+                                       (times (car list-of-lists) evens-multiplied)
+                                       odds-summed))))
+         (else
+           (evens-only*&co (cdr list-of-lists)
+                           (lambda (list-of-lists-evens evens-multiplied odds-summed)
+                             (collector list-of-lists-evens
+                                        evens-multiplied
+                                        (plus (car list-of-lists) odds-summed)))))))
+      (else
+        (evens-only*&co (car list-of-lists)
+                        (lambda (list-of-lists-evens evens-multiplied odds-summed)
+                          (evens-only*&co (cdr list-of-lists)
+                                          (lambda (nestedL nestedP nestedS)
+                                            (collector (cons list-of-lists-evens nestedL)
+                                                       (times evens-multiplied nestedP)
+                                                       (plus odds-summed nestedS))))))))))
