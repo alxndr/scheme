@@ -9,3 +9,56 @@
 (define looking
   (lambda (atm list-of-atoms)
     (keep-looking atm (pick 1 list-of-atoms) list-of-atoms)))
+
+(define shift
+  (lambda (pair-of-tups)
+    (cons
+      (car (car pair-of-tups))
+      (cons
+        (cons
+          (car (cdr (car pair-of-tups)))
+          (cdr pair-of-tups))
+        '()))))
+
+(define align
+  ; dependencies aren't defined
+  (lambda (pair-or-atom)
+    (cond
+      ((atom? pair-or-atom)
+       pair-or-atom)
+      ((a-pair? (first pair-or-atom))
+       (align (shift pair-or-atom)))
+      (else
+        (build (first pair-or-atom)
+               (align (second pair-or-atom)))))))
+
+(define length*
+  (lambda (pair-or-atom)
+    (cond
+      ((null? pair-or-atom)
+       0)
+      ((atom? pair-or-atom)
+       1)
+      (else
+       (plus (length* (car pair-or-atom))
+             (length* (cdr pair-or-atom)))))))
+
+(define weight*
+  (lambda (pair-or-atom)
+    (cond
+      ((atom? pair-or-atom) 1)
+      (else
+        (plus
+          (times
+            (weight* (first pair-or-atom)) 2)
+          (weight* (second pair-or-atom)))))))
+
+(define shuffle
+  (lambda (pair-or-atom)
+    (cond
+      ((atom? pair-or-atom) pair-or-atom)
+      ((a-pair? (first pair-or-atom))
+       (shuffle (revpair pair-or-atom)))
+      (else
+        (build (first pair-or-atom)
+               (shuffle (second pair-or-atom)))))))
