@@ -62,3 +62,20 @@
       (else
         (build (first pair-or-atom)
                (shuffle (second pair-or-atom)))))))
+
+(define C ; Lothar Collatz
+  (lambda (n)
+    (cond
+      ((one? n) 1)
+      ((even? n) (C (div n 2)))
+      (else
+        (C (add1 (times 3 n)))))))
+
+(define A ; Wilhelm Ackermann
+  (lambda (x y)
+    (cond
+      ((zero? x) (add1 y))
+      ((zero? y) (A (sub1 x) 1))
+      (else
+        (A (sub1 x)
+           (A x (sub1 y)))))))
