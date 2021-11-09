@@ -150,3 +150,69 @@
 (define *cond
   (lambda (e table)
     (evcon (cond-lines-of e) table)))
+
+(define evlis ; evaluate list?
+  (lambda (args table)
+    (cond
+      ((null? args) '())
+      (else
+        (cons (meaning (car args) table)
+              (evlis (cdr args) table))))))
+
+(define primitive?
+  (lambda (l)
+    (eq? 'primitive (first l))))
+
+(define non-primitive?
+  (lambda (l)
+    (eq? 'non-primitive (first l))))
+
+(define :atom?
+  (lambda (x)
+    (cond
+      ((atom? x) #t)
+      ((null? x) #f)
+      ((eq? (car x) 'primitive) #t)
+      ((eq? (car x) 'non-primitive) #t)
+      (else #f))))
+
+(define apply-primitive
+  (lambda (name vals)
+    (cond
+      ((eq? name 'cons)    (cons (first vals) (second vals)))
+      ((eq? name 'car)     (car (first vals)))
+      ((eq? name 'cdr)     (cdr (first vals)))
+      ((eq? name 'null?)   (null? (first vals)))
+      ((eq? name 'eq?)     (eq? (first vals) (second vals)))
+      ((eq? name 'atom?)   (:atom? (first vals)))
+      ((eq? name 'zero?)   (zero? (first vals)))
+      ((eq? name 'add1)    (add1 (first vals)))
+      ((eq? name 'sub1)    (sub1 (first vals)))
+      ((eq? name 'number?) (number? (first vals)))
+      (else
+        'INVALIDPRIMITIVE))))
+
+(define applyy ; "apply" is reserved in Scheme
+  (lambda (fun vals)
+    (cond
+      ((primitive? fun)
+       (apply-primitive (second fun) vals))
+      ((non-primitive? fun)
+       (apply-closure (second fun) vals)))
+      (else
+        'INVALIDAPPLYY))))
+
+(define function-of
+  car)
+
+(define arguments-of
+  cdr)
+
+(define *application
+  ; "a list of expressions whose `car` pos contains an expression whose value is a function"
+  (lambda (e table)
+    (applyy
+      (meaning (function-of e) table)
+      (evlis (arguments-of e) table))))
+
+
