@@ -56,18 +56,18 @@
   (lambda (atm)
     (cond
       ((number? atm) *const)
-      ((eq? e #t) *const)
-      ((eq? e #f) *const)
-      ((eq? e 'cons) *const)
-      ((eq? e 'car) *const)
-      ((eq? e 'cdr) *const)
-      ((eq? e 'null?) *const)
-      ((eq? e 'eq?) *const)
-      ((eq? e 'atom?) *const)
-      ((eq? e 'zero?) *const)
-      ((eq? e 'add1) *const)
-      ((eq? e 'sub1) *const)
-      ((eq? e 'number?) *const)
+      ((eq? atm #t) *const)
+      ((eq? atm #f) *const)
+      ((eq? atm 'cons) *const)
+      ((eq? atm 'car) *const)
+      ((eq? atm 'cdr) *const)
+      ((eq? atm 'null?) *const)
+      ((eq? atm 'eq?) *const)
+      ((eq? atm 'atom?) *const)
+      ((eq? atm 'zero?) *const)
+      ((eq? atm 'add1) *const)
+      ((eq? atm 'sub1) *const)
+      ((eq? atm 'number?) *const)
       (else *identifier))))
 
 (define text-of
@@ -81,7 +81,7 @@
   (lambda (e table)
     (lookup-in-table e
                      table
-                     (lambda (name) '(NOTFOUND (unquote name))))))
+                     (lambda (name) 'NOTFOUND))))
 
 (define *lambda
   (lambda (e table)
@@ -113,3 +113,40 @@
   ; "…approximates the function `eval` in Scheme"
   (lambda (e)
     (meaning e '())))
+
+(define table-of
+  first)
+
+(define formals-of
+  second)
+
+(define body-of
+  third)
+
+(define else?
+  (lambda (x)
+    (cond
+      ((atom? x) (eq? x 'else))
+      (else #f))))
+
+(define question-of
+  first)
+
+(define answer-of
+  second)
+
+(define evcon
+  (lambda (lines table)
+    (cond
+      ((else? (question-of (car lines)))
+       (meaning (answer-of (car lines)) table))
+      ((meaning (question-of (car lines)) table)
+       (meaning (answer-of (car lines)) table))
+      (else (evcon (cdr lines) table)))))
+
+(define cond-lines-of
+  cdr)
+
+(define *cond
+  (lambda (e table)
+    (evcon (cond-lines-of e) table)))
