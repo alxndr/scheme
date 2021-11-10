@@ -1,3 +1,5 @@
+#lang scheme
+
 ; "An entry is a pair of lists whose first list is a set.
 ; "…the two lists must be of equal length."
 
