@@ -194,6 +194,12 @@
       (else
         'INVALIDPRIMITIVE))))
 
+(define apply-closure
+  (lambda (closure vals)
+    (meaning (body-of closure)
+             (extend-table (new-entry (formals-of closure) vals)
+                           (table-of closure)))))
+
 (define applyy ; "apply" is reserved in Scheme
   (lambda (fun vals)
     (cond
@@ -216,5 +222,3 @@
     (applyy
       (meaning (function-of e) table)
       (evlis (arguments-of e) table))))
-
-
