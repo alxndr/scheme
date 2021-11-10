@@ -1,5 +1,11 @@
 #lang scheme
 
+(define atom?
+  (lambda (x)
+    (and
+      (not (pair? x))
+      (not (null? x)))))
+
 ; "An entry is a pair of lists whose first list is a set.
 ; "…the two lists must be of equal length."
 
@@ -45,6 +51,8 @@
 (define build
   (lambda (t v)
     (cons t (cons v '()))))
+
+(define new-entry build)
 
 (define *const
   (lambda (e table)
@@ -197,8 +205,7 @@
 (define apply-closure
   (lambda (closure vals)
     (meaning (body-of closure)
-             (extend-table (new-entry (formals-of closure) vals)
-                           (table-of closure)))))
+             (extend-table (new-entry (formals-of closure) vals) (table-of closure)))))
 
 (define applyy ; "apply" is reserved in Scheme
   (lambda (fun vals)
@@ -206,9 +213,9 @@
       ((primitive? fun)
        (apply-primitive (second fun) vals))
       ((non-primitive? fun)
-       (apply-closure (second fun) vals)))
+       (apply-closure (second fun) vals))
       (else
-        'INVALIDAPPLYY)))
+        'INVALIDAPPLYY))))
 
 (define function-of
   car)
