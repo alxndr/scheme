@@ -202,7 +202,7 @@
       ((non-primitive? fun)
        (apply-closure (second fun) vals)))
       (else
-        'INVALIDAPPLYY))))
+        'INVALIDAPPLYY)))
 
 (define function-of
   car)
